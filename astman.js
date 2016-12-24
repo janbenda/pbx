@@ -1,6 +1,7 @@
 function Astman() {
 	var me = this;
 	var channels = new Array;
+	var queues = new Array;
 	var lastselect;
 	var selecttarget;
 	this.setURL = function(url) {
@@ -14,7 +15,7 @@ function Astman() {
 	};
 	this.clickChannel = function(ev) {
 		var target = ev.target;
-		// XXX This is icky, we statically use astmanEngine to call the callback XXX 
+		// XXX This is icky, we statically use astmanEngine to call the callback XXX
 		if (me.selecttarget)
 			me.restoreTarget(me.selecttarget);
 		while(!target.id || !target.id.length)
@@ -34,13 +35,86 @@ function Astman() {
 			other = target.nextSibling.nextSibling.className;
 		}
 		if (other) {
-			if (other == "chanlisteven") 
+			if (other == "chanlisteven")
 				target.className = "chanlistodd";
 			else
 				target.className = "chanlisteven";
 		} else
 				target.className = "chanlistodd";
 	};
+
+//zpracovani eventu tykajicich se front
+	//var fields = new Array("callerid", "calleridname", "context", "extension", "priority", "account", "state", "link", "uniqueid" );
+/*
+tohle je event z uvodniho ququestatus a mozna po buttonu refresh
+	Event: QueueMember
+	Queue: 5500
+	Name: Local/9143@from-internal/n
+	Location: Local/9143@from-internal/n
+	Membership: dynamic
+	Penalty: 0
+	CallsTaken: 0
+	LastCall: 0
+	Status: 1
+	Paused: 0
+po waitevent chodi tyto eventy
+takhle vypada event po prihlaseni agenta 141
+Event: QueueMemberAdded
+Privilege: agent,all
+Queue: 5111
+Location: Local/9141@from-internal/n
+MemberName: Local/9141@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 5
+Paused: 0
+
+takhle vypada event po odhlaseni agenta 141
+Event: QueueMemberRemoved
+Privilege: agent,all
+Queue: 5111
+Location: Local/9141@from-internal/n
+MemberName: Local/9141@from-internal/n
+
+	*/
+	this.queueUpdate = function(msg, qnumber) {
+	var fields = new Array("event","queue", "name", "location", "membership", "penalty", "callstaken", "lastcall", "status", "paused" );
+
+/* frontu bez memberu zalozoim z Event: QueueParams
+	Event: QueueParams
+	Queue: 5111
+
+	a dasi zpracovavany eventy jsou added a removed
+*/
+	if (msg.headers.event == 'QueueMember') {
+  	if (!qnumber || !qnumber.length) {
+		  qnumber = "q" + msg.headers['queue'];
+	  } else {
+  		qnumber = "q" + qnumber
+  	}
+
+  	if (!queues[qnumber]) {
+	  	queues[qnumber] = new Array();
+			queues[qnumber]['agents']=""
+		}
+		aAgent=msg.headers['location'].match(/\/([0-9]{3,9})@/i);
+		agent=aAgent[1];
+		if (agent.length==4 && agent.substr(0,1)=='9')
+		  agent=agent.substr(1);
+		if (queues[qnumber]['agents'].indexOf(agent) == -1)
+		  queues[qnumber]['agents'] = queues[qnumber]['agents']+"/"+agent;
+		for (x=0;x<fields.length;x++) {
+			if (msg.headers[fields[x]])
+				queues[qnumber][fields[x]] = msg.headers[fields[x]];
+	  }
+	}
+};
+
+//konec front
+
+
 	this.channelUpdate = function(msg, channame) {
 		var fields = new Array("callerid", "calleridname", "context", "extension", "priority", "account", "state", "link", "uniqueid" );
 
@@ -49,7 +123,7 @@ function Astman() {
 
 		if (!channels[channame])
 			channels[channame] = new Array();
-			
+
 		if (msg.headers.event) {
 			if (msg.headers.event == "Hangup") {
 				delete channels[channame];
@@ -162,7 +236,7 @@ function Astman() {
 		var x,y;
 		var s = t.responseText;
 		var allheaders = s.split('\r\n');
-		if (me.debug) 
+		if (me.debug)
 			me.debug.value = "\n";
 		for (x=0;x<allheaders.length;x++) {
 			if (allheaders[x].length) {
@@ -215,7 +289,7 @@ function Astman() {
 			asynchronous: true,
 			onSuccess: this.managerResponse,
 			onFailure: function(t) {
-				alert("Error: " + t.status + ": " + t.statusText);
+				alert("Event Error sendRequest: " + this.url + ": " + t.status + ": " + t.statusText);
 			}
 		};
 		me.callback = callback;
@@ -229,7 +303,7 @@ function Astman() {
 			asynchronous: true,
 			onSuccess: this.eventResponse,
 			onFailure: function(t) {
-				alert("Event Error: " + t.status + ": " + t.statusText);
+				alert("Event Error: " + this.url + ": " + t.status + ": " + t.statusText);
 			}
 		};
 		opt.parameters="action=waitevent";
