@@ -1,0 +1,982 @@
+timhle se prida do fronty
+http://192.168.2.7:8088/asterisk/rawman?action=QueueAdd&queue=5111&Interface=Local/9141@from-internal/n&Penalty=1
+
+Response: Success
+Message: Added interface to queue
+
+
+timhle odstranit
+192.168.2.7:8088/asterisk/rawman?action=QueueRemove&queue=5111&Interface=local/9141@from-internal/n
+
+Response: Success
+Message: Removed interface from queue
+
+http://192.168.2.7:8088/asterisk/rawman?action=queuestatus
+dava toto
+
+zobrazim fronty s jejich agenty, kliknutim na frontu pri/odhlasim agenta
+taky bych mohl agenta zobrazovat zlute kdyz ringing, zelene volno cervene mluvi
+
+tabulka treba s 5 sloupci (vic agentu nebude) ale mohlo byt to byt na konstantu
+5111 agent1 agent2
+51111 agent1 agent2
+51112 agent1 agent2 agent3
+51113 
+5211
+...
+
+
+projdu si Event: (pracovat budu s 3 znakovymi linkami)
+Event: QueueParams
+Queue: 52112
+ a z toho naplnim, pole frontu
+a k tomu doplnim agenty z 
+Event: QueueMember
+Queue: 52112
+Name: Local/9148@from-internal/n
+Location: Local/9148@from-internal/n
+
+q[52111][148]
+
+
+Response: Success
+Message: Queue status will follow
+
+Event: QueueParams
+Queue: 5500
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5500
+Name: Local/9143@from-internal/n
+Location: Local/9143@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5500
+Name: Local/9129@from-internal/n
+Location: Local/9129@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5158
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5158
+Name: Local/9126@from-internal/n
+Location: Local/9126@from-internal/n
+Membership: static
+Penalty: 1
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5999
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5999
+Name: Local/91410@from-internal/n
+Location: Local/91410@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5855
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5855
+Name: Local/855@from-internal/n
+Location: Local/855@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5838
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5838
+Name: Local/838@from-internal/n
+Location: Local/838@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5826
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5826
+Name: Local/826@from-internal/n
+Location: Local/826@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5812
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5812
+Name: Local/881@from-internal/n
+Location: Local/881@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5604
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5604
+Name: Local/724338847@from-internal/n
+Location: Local/724338847@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5603
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5603
+Name: Local/724338847@from-internal/n
+Location: Local/724338847@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5602
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5602
+Name: Local/724338847@from-internal/n
+Location: Local/724338847@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5601
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5601
+Name: Local/724338847@from-internal/n
+Location: Local/724338847@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5600
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5600
+Name: Local/724338847@from-internal/n
+Location: Local/724338847@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5287
+Max: 0
+Calls: 0
+Holdtime: 13
+Completed: 7
+Abandoned: 10
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5287
+Name: Local/9186@from-internal/n
+Location: Local/9186@from-internal/n
+Membership: static
+Penalty: 1
+CallsTaken: 7
+LastCall: 1481635913
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5250
+Max: 0
+Calls: 0
+Holdtime: 10
+Completed: 1
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5250
+Name: Local/9148@from-internal/n
+Location: Local/9148@from-internal/n
+Membership: static
+Penalty: 1
+CallsTaken: 1
+LastCall: 1481617995
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5250
+Name: Local/9162@from-internal/n
+Location: Local/9162@from-internal/n
+Membership: static
+Penalty: 2
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 1
+
+Event: QueueParams
+Queue: 5235
+Max: 0
+Calls: 0
+Holdtime: 18
+Completed: 8
+Abandoned: 3
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5235
+Name: Local/9163@from-internal/n
+Location: Local/9163@from-internal/n
+Membership: static
+Penalty: 2
+CallsTaken: 8
+LastCall: 1481640504
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5235
+Name: Local/9160@from-internal/n
+Location: Local/9160@from-internal/n
+Membership: static
+Penalty: 1
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 1
+
+Event: QueueParams
+Queue: 5218
+Max: 0
+Calls: 0
+Holdtime: 10
+Completed: 2
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5218
+Name: Local/9163@from-internal/n
+Location: Local/9163@from-internal/n
+Membership: static
+Penalty: 2
+CallsTaken: 2
+LastCall: 1481637582
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5218
+Name: Local/9160@from-internal/n
+Location: Local/9160@from-internal/n
+Membership: static
+Penalty: 1
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 52113
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueParams
+Queue: 52112
+Max: 0
+Calls: 0
+Holdtime: 1
+Completed: 4
+Abandoned: 2
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 52112
+Name: Local/9148@from-internal/n
+Location: Local/9148@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 52112
+Name: Local/9162@from-internal/n
+Location: Local/9162@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 4
+LastCall: 1481641066
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 52111
+Max: 0
+Calls: 0
+Holdtime: 6
+Completed: 12
+Abandoned: 7
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 52111
+Name: Local/9148@from-internal/n
+Location: Local/9148@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 4
+LastCall: 1481631389
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 52111
+Name: Local/9162@from-internal/n
+Location: Local/9162@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 8
+LastCall: 1481640164
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5211
+Max: 0
+Calls: 0
+Holdtime: 5
+Completed: 18
+Abandoned: 21
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5211
+Name: Local/9148@from-internal/n
+Location: Local/9148@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 18
+LastCall: 1481635780
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5187
+Max: 0
+Calls: 0
+Holdtime: 20
+Completed: 16
+Abandoned: 10
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5187
+Name: Local/9187@from-internal/n
+Location: Local/9187@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 15
+LastCall: 1481635279
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5187
+Name: Local/9182@from-internal/n
+Location: Local/9182@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5187
+Name: Local/9186@from-internal/n
+Location: Local/9186@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 1
+LastCall: 1481629835
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 51502
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 51502
+Name: 112
+Location: Local/9112@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 51502
+Name: 129
+Location: Local/9129@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 51501
+Max: 0
+Calls: 0
+Holdtime: 2
+Completed: 1
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 51501
+Name: 112
+Location: Local/9112@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 1
+LastCall: 1481631429
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 51501
+Name: 129
+Location: Local/9129@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5150
+Max: 0
+Calls: 0
+Holdtime: 1
+Completed: 1
+Abandoned: 1
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5150
+Name: 129
+Location: Local/9129@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 1
+LastCall: 1481626355
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 51351
+Max: 0
+Calls: 0
+Holdtime: 4
+Completed: 8
+Abandoned: 6
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 51351
+Name: Local/9135@from-internal/n
+Location: Local/9135@from-internal/n
+Membership: static
+Penalty: 1
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5135
+Max: 0
+Calls: 0
+Holdtime: 10
+Completed: 14
+Abandoned: 14
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5135
+Name: Local/9144@from-internal/n
+Location: Local/9144@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 14
+LastCall: 1481637281
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 51221
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 51221
+Name: Local/9182@from-internal/n
+Location: Local/9182@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 51221
+Name: Local/9186@from-internal/n
+Location: Local/9186@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5122
+Max: 0
+Calls: 0
+Holdtime: 11
+Completed: 7
+Abandoned: 1
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5122
+Name: Local/9182@from-internal/n
+Location: Local/9182@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 3
+LastCall: 1481639351
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5122
+Name: Local/9186@from-internal/n
+Location: Local/9186@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 4
+LastCall: 1481629145
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5118
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5118
+Name: Local/9144@from-internal/n
+Location: Local/9144@from-internal/n
+Membership: static
+Penalty: 2
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5118
+Name: Local/9168@from-internal/n
+Location: Local/9168@from-internal/n
+Membership: static
+Penalty: 1
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 51113
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 51113
+Name: Local/9143@from-internal/n
+Location: Local/9143@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 51113
+Name: Local/9129@from-internal/n
+Location: Local/9129@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 51112
+Max: 0
+Calls: 0
+Holdtime: 4
+Completed: 7
+Abandoned: 8
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 51112
+Name: Local/9143@from-internal/n
+Location: Local/9143@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 1
+LastCall: 1481639009
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 51112
+Name: Local/9129@from-internal/n
+Location: Local/9129@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 2
+LastCall: 1481631184
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 51111
+Max: 0
+Calls: 0
+Holdtime: 12
+Completed: 36
+Abandoned: 16
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 51111
+Name: Local/9143@from-internal/n
+Location: Local/9143@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 14
+LastCall: 1481640061
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 51111
+Name: Local/9129@from-internal/n
+Location: Local/9129@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 13
+LastCall: 1481639497
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5111
+Max: 0
+Calls: 0
+Holdtime: 5
+Completed: 27
+Abandoned: 52
+ServiceLevel: 1800
+ServicelevelPerf: 100.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5111
+Name: Local/9129@from-internal/n
+Location: Local/9129@from-internal/n
+Membership: dynamic
+Penalty: 0
+CallsTaken: 27
+LastCall: 1481640675
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: 5001
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 1800
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueMember
+Queue: 5001
+Name: Local/9112@from-internal/n
+Location: Local/9112@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueMember
+Queue: 5001
+Name: Local/9129@from-internal/n
+Location: Local/9129@from-internal/n
+Membership: static
+Penalty: 0
+CallsTaken: 0
+LastCall: 0
+Status: 1
+Paused: 0
+
+Event: QueueParams
+Queue: default
+Max: 0
+Calls: 0
+Holdtime: 0
+Completed: 0
+Abandoned: 0
+ServiceLevel: 0
+ServicelevelPerf: 0.0
+Weight: 0
+
+Event: QueueStatusComplete
+
+

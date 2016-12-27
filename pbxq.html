@@ -24,11 +24,15 @@
 		astmanEngine.setDebug(true);
 		astmanEngine.pollEvents();
 		astmanEngine.sendRequest('action=status', demo.channels);
+		$('statusbar').innerHTML = "<i>Retrieving queue status...</i>";
 		astmanEngine.sendRequest('action=queuestatus', demo.queues);
 	}
 
 	function clearChannelList() {
 		$('channellist').innerHTML = "<i class='light'>Not connected</i>";
+	}
+	function clearQueueList() {
+		$('queuelist').innerHTML = "<i class='light'>Not connected</i>";
 	}
 
 	function loggedOff() {
@@ -39,6 +43,8 @@
 		updateButtons();
 		astmanEngine.channelClear();
 	 	clearChannelList();
+		astmanEngine.queueClear();
+	 	clearQueueList();
 	}
 
 	function updateButtons()
@@ -96,6 +102,7 @@
 			loggedOff();
 		for (i=1;i<msgs.length - 1;i++)
 			astmanEngine.queueUpdate(msgs[i]);
+		$('queuelist').innerHTML = astmanEngine.queueTable(demo.channelCallback);
 		$('statusbar').innerHTML = "QueuesReady";
 	}
 
@@ -130,8 +137,9 @@
 	function doStatus() {
 		$('statusbar').innerHTML = "<i>Updating channel status...</i>";
 		astmanEngine.channelClear();
-		astmanEngine.sendRequest('action=status', demo.channels);
+		astmanEngine.queueClear();
 		astmanEngine.sendRequest('action=queuestatus', demo.queues);
+		astmanEngine.sendRequest('action=status', demo.channels);
 	}
 
 	function doLogin() {
@@ -179,8 +187,10 @@
 		if (loggedon) {
 			for (i=1;i<msgs.length - 1;i++) {
 				astmanEngine.channelUpdate(msgs[i]);
+				astmanEngine.queueUpdate(msgs[i]);
 			}
 			$('channellist').innerHTML = astmanEngine.channelTable(demo.channelCallback);
+			$('queuelist').innerHTML = astmanEngine.queueTable(demo.channelCallback);
 
 			for (i=1;i<msgs.length - 1;i++) {
 				astmanEngine.queueUpdate(msgs[i]);
@@ -201,48 +211,70 @@
 </script>
 
 <title>Fronty na ZepterPBX</title>
-<body onload="localajaminit()">
-<table align="center" width=600>
-<tr valign="top"><td>
-<table align="left">
-<tr><td colspan="2"><h2>Fronty na ZepterPBX</h2></td>
-<tr><td>Username:</td><td><input id="username"></td></tr>
-<tr><td>Secret:</td><td><input type="password" id="secret"></td></tr>
-	<tr><td colspan=2 align="center">
-	  <div id="statusbar">
-		<span style="margin-left: 4px;font-weight:bold">&nbsp;</span>
-	  </div>
-	</td></tr>
 
-	<tr><td><input type="submit" id="login" value="Login" onClick="doLogin()"></td>
-	<td><input type="submit" id="logoff" value="Logoff" disabled=1 onClick="doLogoff()"></td></tr>
-</table>
-</td><td valign='bottom'>
-<table>
-<div style="margin-left:10;margin-right:50;margin-top:10;margin-bottom:20">
-<i>Status front a agentu. Klinutim na cislo fronty prihlasite/odhlasite do fronty zadanou linku ( moznou prioritou )
+<body onload="localajaminit()">
+	<table align="center" width=600>
+		<tr valign="top">
+			<td>
+				<table align="left">
+					<tr>
+						<td colspan="2">
+							<h2>Fronty na ZepterPBX</h2>
+						</td>
+						<tr>
+							<td>Username:</td>
+							<td><input id="username"></td>
+						</tr>
+						<tr>
+							<td>Secret:</td>
+							<td><input type="password" id="secret"></td>
+						</tr>
+						<tr>
+							<td colspan=2 align="center">
+								<div id="statusbar">
+									<span style="margin-left: 4px;font-weight:bold">&nbsp;</span>
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<td><input type="submit" id="login" value="Login" onClick="doLogin()"></td>
+							<td><input type="submit" id="logoff" value="Logoff" disabled=1 onClick="doLogoff()"></td>
+						</tr>
+				</table>
+			</td>
+			<td valign='bottom'>
+				<table>
+					<div style="margin-left:10;margin-right:50;margin-top:10;margin-bottom:20">
+						<i>Status front a agentu. Klinutim na cislo fronty prihlasite/odhlasite do fronty zadanou linku ( moznou prioritou )
 </i>
-</div>
-<tr>
-	<td><input type="submit" onClick="doStatus()" id="refresh" value="Refresh"></td>
-	<td><input type="submit" onClick="doTransfer()" id="transfer" value="Transfer..."></td>
-	<td><input type="submit" onClick="doHangup()" id="hangup" value="Hangup"></td>
-</tr>
-</table>
-</td></tr>
-<tr><td colspan=2>
-		<div id="channellist" class="chanlist">
-		</div>
-	</td></tr>
-	<tr><td colspan=2>
-			<div id="queueslist" class="qlist">
-				tady je queueslist
-			</div>
-		</td></tr>
-<tr><td align="center" colspan=2>
-	<font size=-1><i>
+					</div>
+					<tr>
+						<td><input type="submit" onClick="doStatus()" id="refresh" value="Refresh"></td>
+						<td><input type="submit" onClick="doTransfer()" id="transfer" value="Transfer..."></td>
+						<td><input type="submit" onClick="doHangup()" id="hangup" value="Hangup"></td>
+					</tr>
+				</table>
+			</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<div id="channellist" class="chanlist">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<div id="queuelist" class="qlist">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td align="center" colspan=2>
+					<font size=-1><i>
            Scheuer Jan, Zepter IT
 	</i></font>
-</td></tr>
-</table>
+				</td>
+			</tr>
+	</table>
 </body>
