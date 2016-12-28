@@ -98,6 +98,12 @@ function Astman() {
 				queues[qnumber]['agents'] = "";
 				queues[qnumber]['queue'] = qnumber;
 			}
+			//ZALOGUJU EVENT
+			console.log('Event LOG');
+			for (x = 0; x < fields.length; x++) {
+				if (msg.headers[fields[x]])
+					console.log(fields[x] + "=>" + msg.headers[fields[x]]);
+			}
 		}
 		if ('/QueueMember/QueueMemberAdded/QueueMemberRemoved/'.indexOf(msg.headers.event) >= 0) {
 			aAgent = msg.headers['location'].match(/\/([0-9]{3,9})@/i);
@@ -107,14 +113,16 @@ function Astman() {
 		}
 		if (msg.headers.event == 'QueueMember') {
 			if (queues[qnumber]['agents'].indexOf(agent) == -1)
-				queues[qnumber]['agents'] = queues[qnumber]['agents'] + "/" + agent;
+				queues[qnumber]['agents'] = queues[qnumber]['agents'] + (queues[qnumber]['agents']!=""?"/":"") + agent;
 			for (x = 0; x < fields.length; x++) {
 				if (msg.headers[fields[x]] && fields[x] != 'queue')
 					queues[qnumber][fields[x]] = msg.headers[fields[x]];
 			}
 		} else if (msg.headers.event == 'QueueMemberAdded') {
+    		queues[qnumber]['agents'] = queues[qnumber]['agents'] + "/" + agent;
 			alert(msg.headers.event + ' ' + agent + ' queue ' + qnumber);
 		} else if (msg.headers.event == 'QueueMemberRemoved') {
+    		queues[qnumber]['agents'] = queues[qnumber]['agents'].replace("/" + agent, "")
 			alert(msg.headers.event + ' ' + agent + ' queue ' + qnumber);
 		}
 	};
