@@ -15,7 +15,7 @@
     var susername = "listenast";
     var ssecret = "Ibjert34+";
 
-	var demo = new Object;
+	var pbxop = new Object;
 
 	function loggedOn() {
 		if (loggedon == 1)
@@ -25,14 +25,12 @@
 		$('statusbar').innerHTML = "<i>Retrieving channel status...</i>";
 		astmanEngine.setDebug(true);
 		astmanEngine.pollEvents();
-		astmanEngine.sendRequest('action=status', demo.channels);
+		astmanEngine.sendRequest('action=status', pbxop.channels);
 		$('statusbar').innerHTML = "<i>Retrieving queue status...</i>";
-		astmanEngine.sendRequest('action=queuestatus', demo.queues);
+		astmanEngine.sendRequest('action=queuestatus', pbxop.queues);
 	}
 
-	function clearChannelList() {
-		$('channellist').innerHTML = "<i class='light'>Not connected</i>";
-	}
+
 	function clearQueueList() {
 		$('queuelist').innerHTML = "<i class='light'>Not connected</i>";
 	}
@@ -43,8 +41,6 @@
 		loggedon = 0;
 		selectedchan = null;
 		updateButtons();
-		astmanEngine.channelClear();
-	 	clearChannelList();
 		astmanEngine.queueClear();
 	 	clearQueueList();
 	}
@@ -83,26 +79,13 @@
 		}
 	}
 
-	demo.channelCallback = function(target) {
+	pbxop.channelCallback = function(target) {
 		selectedchan = target;
 		updateButtons();
 	}
 
-	demo.channels = function(msgs) {
-		resp = msgs[0].headers['response'];
-		if (resp == "Success") {
-			loggedOn();
-		} else
-			loggedOff();
 
-		for (i=1;i<msgs.length - 1;i++)
-			astmanEngine.channelUpdate(msgs[i]);
-		$('channellist').innerHTML = astmanEngine.channelTable(demo.channelCallback);
-		$('statusbar').innerHTML = "ChannelsReady";
-
-	}
-
-	demo.queues = function(msgs) {
+	pbxop.queues = function(msgs) {
 		resp = msgs[0].headers['response'];
 		if (resp == "Success") {
 			loggedOn();
@@ -110,11 +93,11 @@
 			loggedOff();
 		for (i=1;i<msgs.length - 1;i++)
 			astmanEngine.queueUpdate(msgs[i]);
-		$('queuelist').innerHTML = astmanEngine.queueTable(demo.channelCallback);
+		$('queuelist').innerHTML = astmanEngine.queueTable(pbxop.channelCallback);
 		$('statusbar').innerHTML = "QueuesReady";
 	}
 
-	demo.logins = function(msgs) {
+	pbxop.logins = function(msgs) {
 		$('statusbar').innerHTML = msgs[0].headers['message'];
 		resp = msgs[0].headers['response'];
 		if (resp == "Success")
@@ -124,35 +107,35 @@
 	};
 
 
-	demo.logoffs = function(msgs) {
+	pbxop.logoffs = function(msgs) {
 		$('statusbar').innerHTML = msgs[0].headers['message'];
 		loggedOff();
 	};
 
-	demo.hungup = function(msgs) {
+	pbxop.hungup = function(msgs) {
 		$('statusbar').innerHTML = "Hungup " + hungupchan;
 	}
 
-	demo.transferred = function(msgs) {
+	pbxop.transferred = function(msgs) {
 		$('statusbar').innerHTML = "Transferred " + transferredchan;
 	}
 
 	function doHangup() {
 		hungupchan = selectedchan;
-		astmanEngine.sendRequest('action=hangup&channel=' + selectedchan, demo.hungup);
+		astmanEngine.sendRequest('action=hangup&channel=' + selectedchan, pbxop.hungup);
 	}
 
 	function doStatus() {
 		$('statusbar').innerHTML = "<i>Updating channel status...</i>";
 		astmanEngine.channelClear();
 		astmanEngine.queueClear();
-		astmanEngine.sendRequest('action=queuestatus', demo.queues);
-		astmanEngine.sendRequest('action=status', demo.channels);
+		astmanEngine.sendRequest('action=queuestatus', pbxop.queues);
+		astmanEngine.sendRequest('action=status', pbxop.channels);
 	}
 
 	function doLogin() {
 		$('statusbar').innerHTML = "<i>Logging in...</i>";
-		astmanEngine.sendRequest('action=login&username=' + $('username').value + "&secret=" + $('secret').value, demo.logins);
+		astmanEngine.sendRequest('action=login&username=' + $('username').value + "&secret=" + $('secret').value, pbxop.logins);
 	}
 
 	function doTransfer() {
@@ -166,20 +149,20 @@
 			}
 			if (altchan) {
 				transferredchan = selectedchan + " and " + altchan + " to " + exten;
-				astmanEngine.sendRequest('action=redirect&channel=' + selectedchan + "&priority=1&extrachannel=" + altchan + "&exten=" + exten, demo.transferred);
+				astmanEngine.sendRequest('action=redirect&channel=' + selectedchan + "&priority=1&extrachannel=" + altchan + "&exten=" + exten, pbxop.transferred);
 			} else {
 				transferredchan = selectedchan + " to " + exten;
-				astmanEngine.sendRequest('action=redirect&channel=' + selectedchan + "&priority=1&exten=" + exten, demo.transferred);
+				astmanEngine.sendRequest('action=redirect&channel=' + selectedchan + "&priority=1&exten=" + exten, pbxop.transferred);
 			}
 		}
 	}
 
 	function doLogoff() {
 		$('statusbar').innerHTML = "<i>Logging off...</i>";
-		astmanEngine.sendRequest('action=logoff', demo.logoffs);
+		astmanEngine.sendRequest('action=logoff', pbxop.logoffs);
 	}
 
-	demo.pongs  = function(msgs) {
+	pbxop.pongs  = function(msgs) {
 		resp = msgs[0].headers['response'];
 		if (resp == "Pong") {
 			$('statusbar').innerHTML = "<i>Already connected...</i>";
@@ -190,15 +173,15 @@
 		}
 	}
 
-	demo.eventcb = function(msgs) {
+	pbxop.eventcb = function(msgs) {
 		var x;
 		if (loggedon) {
 			for (i=1;i<msgs.length - 1;i++) {
 				astmanEngine.channelUpdate(msgs[i]);
 				astmanEngine.queueUpdate(msgs[i]);
 			}
-			$('channellist').innerHTML = astmanEngine.channelTable(demo.channelCallback);
-			$('queuelist').innerHTML = astmanEngine.queueTable(demo.channelCallback);
+			$('channellist').innerHTML = astmanEngine.channelTable(pbxop.channelCallback);
+			$('queuelist').innerHTML = astmanEngine.queueTable(pbxop.channelCallback);
 
 			for (i=1;i<msgs.length - 1;i++) {
 				astmanEngine.queueUpdate(msgs[i]);
@@ -211,10 +194,10 @@
 
 	function localajaminit() {
 		astmanEngine.setURL('../../rawman');
-		astmanEngine.setEventCallback(demo.eventcb);
+		astmanEngine.setEventCallback(pbxop.eventcb);
 		//astmanEngine.setDebug($('ditto'));
 		clearChannelList();
-		astmanEngine.sendRequest('action=ping', demo.pongs);
+		astmanEngine.sendRequest('action=ping', pbxop.pongs);
 	}
 </script>
 
@@ -271,12 +254,6 @@
 					</tr>
 				</table>
 			</td>
-			</tr>
-			<tr>
-				<td colspan=2>
-					<div id="channellist" class="chanlist">
-					</div>
-				</td>
 			</tr>
 			<tr>
 				<td colspan=2>
