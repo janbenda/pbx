@@ -12,6 +12,8 @@
 	var selectedchan = null;
 	var hungupchan = "";
 	var transferedchan = "";
+    var susername = "listenast";
+    var ssecret = "Ibjert34+";
 
 	var demo = new Object;
 
@@ -63,14 +65,20 @@
 			$('logoff').disabled = 0;
 			$('login').disabled = 1;
 			$('refresh').disabled = 0;
+			localStorage.setItem("linka",$('linka').value);
+			localStorage.setItem("priority",$('priority').value);
+			$('linka').disabled = 1;
 		} else {
-                        $('username').value = "listenast";
-                        $('secret').value = "Ibjert34+";
+            $('username').value = susername;
+            $('secret').value = ssecret;
+            $('linka').value = localStorage.getItem("linka");
+            $('priority').value = localStorage.getItem("priority");
 
-			$('username').disabled = 0;
-			$('secret').disabled = 0;
+			$('username').disabled = 1;
+			$('secret').disabled = 1;
 			$('logoff').disabled = 1;
 			$('login').disabled = 0;
+			$('linka').disabled = 0;
 			$('refresh').disabled = 1;
 		}
 	}
@@ -211,7 +219,8 @@
 </script>
 
 <title>Fronty na ZepterPBX</title>
-
+<head><meta charset="utf-8">
+</head>
 <body onload="localajaminit()">
 	<table align="center" width=600>
 		<tr valign="top">
@@ -228,6 +237,12 @@
 						<tr>
 							<td>Secret:</td>
 							<td><input type="password" id="secret"></td>
+						</tr>
+						<tr>
+							<td>Linka:</td>
+							<td><input type="number" min="100" max="199" id="linka"></td>
+							<td>Pořadí:</td>
+							<td><input type="number" min="1" max="3" id="priority"></td>
 						</tr>
 						<tr>
 							<td colspan=2 align="center">

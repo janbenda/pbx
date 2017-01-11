@@ -83,7 +83,7 @@ function Astman() {
 		var fields = new Array("event", "queue", "name", "location", "membership", "penalty", "callstaken", "lastcall", "status", "paused");
 		var agent, aAgent;
 
-		/* frontu bez memberu zalozoim z Event: QueueParams
+		/* frontu bez memberu zalozim z Event: QueueParams
 			Event: QueueParams
 			Queue: 5111
 		
@@ -120,10 +120,10 @@ function Astman() {
 			}
 		} else if (msg.headers.event == 'QueueMemberAdded') {
     		queues[qnumber]['agents'] = queues[qnumber]['agents'] + "/" + agent;
-			alert(msg.headers.event + ' ' + agent + ' queue ' + qnumber);
+			console.log(msg.headers.event + ' ' + agent + ' queue ' + qnumber);
 		} else if (msg.headers.event == 'QueueMemberRemoved') {
     		queues[qnumber]['agents'] = queues[qnumber]['agents'].replace("/" + agent, "")
-			alert(msg.headers.event + ' ' + agent + ' queue ' + qnumber);
+			console.log(msg.headers.event + ' ' + agent + ' queue ' + qnumber);
 		}
 	};
 
