@@ -126,61 +126,8 @@ function Astman() {
 			console.log(msg.headers.event + ' ' + agent + ' queue ' + qnumber);
 		}
 	};
-
 	//konec front
 
-
-	this.channelUpdate = function (msg, channame) {
-		var fields = new Array("callerid", "calleridname", "context", "extension", "priority", "account", "state", "link", "uniqueid");
-
-		if (!channame || !channame.length)
-			channame = msg.headers['channel'];
-
-		if (!channels[channame])
-			channels[channame] = new Array();
-
-		if (msg.headers.event) {
-			if (msg.headers.event == "Hangup") {
-				delete channels[channame];
-			} else if (msg.headers.event == "Link") {
-				var chan1 = msg.headers.channel1;
-				var chan2 = msg.headers.channel2;
-				if (chan1 && channels[chan1])
-					channels[chan1].link = chan2;
-				if (chan2 && channels[chan2])
-					channels[chan2].link = chan1;
-			} else if (msg.headers.event == "Unlink") {
-				var chan1 = msg.headers.channel1;
-				var chan2 = msg.headers.channel2;
-				if (chan1 && channels[chan1])
-					delete channels[chan1].link;
-				if (chan2 && channels[chan2])
-					delete channels[chan2].link;
-			} else if (msg.headers.event == "Rename") {
-				var oldname = msg.headers.oldname;
-				var newname = msg.headers.newname;
-				if (oldname && channels[oldname]) {
-					channels[newname] = channels[oldname];
-					delete channels[oldname];
-				}
-			} else {
-				channels[channame]['channel'] = channame;
-				for (x = 0; x < fields.length; x++) {
-					if (msg.headers[fields[x]])
-						channels[channame][fields[x]] = msg.headers[fields[x]];
-				}
-			}
-		} else {
-			channels[channame]['channel'] = channame;
-			for (x = 0; x < fields.length; x++) {
-				if (msg.headers[fields[x]])
-					channels[channame][fields[x]] = msg.headers[fields[x]];
-			}
-		}
-	};
-	this.channelClear = function () {
-		channels = new Array;
-	}
 	this.queueClear = function () {
 		queues = new Array;
 	}
